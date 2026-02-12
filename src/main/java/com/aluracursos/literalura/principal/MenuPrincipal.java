@@ -1,9 +1,16 @@
 package com.aluracursos.literalura.principal;
 
+import com.aluracursos.literalura.services.LibroRepository;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {
     private boolean isNum = false;
+    private LibroRepository repositorio;
+
+    public MenuPrincipal(LibroRepository repositorio){
+        this.repositorio = repositorio;
+    }
 
     public void startMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -56,5 +63,11 @@ public class MenuPrincipal {
         }
         return -1;
 
+    }
+
+    //OPCIONES
+
+    public String buscarPorTitulo(String titulo){
+        return "test";
     }
 }
