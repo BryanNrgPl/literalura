@@ -7,13 +7,14 @@ import java.util.Scanner;
 public class MenuPrincipal {
     private boolean isNum = false;
     private LibroRepository repositorio;
+    Scanner scanner = new Scanner(System.in);
 
     public MenuPrincipal(LibroRepository repositorio){
         this.repositorio = repositorio;
     }
 
     public void startMenu() {
-        Scanner scanner = new Scanner(System.in);
+
 
         while (true) {
             System.out.println("-----------------------");
@@ -30,7 +31,7 @@ public class MenuPrincipal {
                     System.out.println("Saliendo...");
                     return;
                 case 1:
-                    System.out.println("Elegiste 1");
+                    buscarPorTitulo();
                     break;
                 case 2:
                     System.out.println("Elegiste 2");
@@ -67,7 +68,8 @@ public class MenuPrincipal {
 
     //OPCIONES
 
-    public String buscarPorTitulo(String titulo){
-        return "test";
+    public void buscarPorTitulo(){
+        String titulo = scanner.nextLine();
+        repositorio.findByTitulo(titulo);
     }
 }
