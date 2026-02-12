@@ -1,17 +1,21 @@
 package com.aluracursos.literalura.principal;
 
 import com.aluracursos.literalura.services.LibroRepository;
+import com.aluracursos.literalura.services.LibroService;
 
 import java.util.Scanner;
 
 public class MenuPrincipal {
     private boolean isNum = false;
     private LibroRepository repositorio;
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private LibroService libroService;
 
     public MenuPrincipal(LibroRepository repositorio){
         this.repositorio = repositorio;
+        this.libroService = new LibroService(repositorio);
     }
+
 
     public void startMenu() {
 
@@ -69,6 +73,7 @@ public class MenuPrincipal {
     //OPCIONES
 
     public void buscarPorTitulo(){
+        System.out.println("Ingrese el titulo: ");
         String titulo = scanner.nextLine();
         repositorio.findByTitulo(titulo);
     }
