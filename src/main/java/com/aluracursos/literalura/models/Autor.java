@@ -66,4 +66,12 @@ public class Autor {
     public void setLibro(Libro libro) {
         this.libro = libro;
     }
+
+    @Override
+    public String toString(){
+        return "---------Autor---------" + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Fecha de Nacimiento: " + fechaDeNacimiento + "\n" +
+                "Fecha de Muerte: " + fechaDeMuerte;
+    }
 }

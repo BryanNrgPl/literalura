@@ -1,19 +1,25 @@
 package com.aluracursos.literalura.principal;
 
+import com.aluracursos.literalura.models.Autor;
+import com.aluracursos.literalura.models.Libro;
+import com.aluracursos.literalura.services.AutorRepository;
 import com.aluracursos.literalura.services.LibroRepository;
 import com.aluracursos.literalura.services.LibroService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuPrincipal {
     private boolean isNum = false;
-    private LibroRepository repositorio;
+    private LibroRepository repositorioLibros;
+    private AutorRepository repositorioAutores;
     private Scanner scanner = new Scanner(System.in);
     private LibroService libroService;
 
-    public MenuPrincipal(LibroRepository repositorio){
-        this.repositorio = repositorio;
-        this.libroService = new LibroService(repositorio);
+    public MenuPrincipal(LibroRepository repositorioLibros, AutorRepository repositorioAutores){
+        this.repositorioLibros = repositorioLibros;
+        this.repositorioAutores = repositorioAutores;
+        this.libroService = new LibroService(repositorioLibros);
     }
 
 
@@ -38,7 +44,16 @@ public class MenuPrincipal {
                     buscarPorTitulo();
                     break;
                 case 2:
-                    System.out.println("Elegiste 2");
+                    listarLibrosRegistrados();
+                    break;
+                case 3:
+                    listarAutoresRegistrados();
+                    break;
+                case 4:
+                    System.out.println("4");
+                    break;
+                case 5:
+                    System.out.println(5);
                     break;
                 case -1:
                     break;
@@ -75,6 +90,30 @@ public class MenuPrincipal {
     public void buscarPorTitulo(){
         System.out.println("Ingrese el titulo: ");
         String titulo = scanner.nextLine();
-        repositorio.findByTitulo(titulo);
+        libroService.obtenerLibro(titulo);
+    }
+
+    private void listarLibrosRegistrados() {
+        //System.out.println(repositorio.findAll());
+        List<Libro> libros = repositorioLibros.findAll();
+
+        if (libros.isEmpty()){
+            System.out.println("No hay libros para mostrar:");
+        }else{
+            libros.stream().forEach(System.out::println);
+        }
+
+        libros.forEach(System.out::println);
+    }
+
+    private void listarAutoresRegistrados(){
+        List<Autor> autores = repositorioAutores.distinctAutores();
+
+        if (autores.isEmpty()){
+            System.out.println("No hay autores para mostrar.");
+        }else{
+            autores.stream().forEach(System.out::println);
+        }
+
     }
 }

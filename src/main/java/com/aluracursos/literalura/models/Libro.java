@@ -2,6 +2,7 @@ package com.aluracursos.literalura.models;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "libros")
@@ -17,12 +18,15 @@ public class Libro {
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autores;
     private String idioma;
+    private int numeroDescargas;
 
-    public Libro(){
 
-    }
+    public Libro(){}
+
+
     public Libro(DatosLibro datosLibro){
         this.titulo = datosLibro.titulo();
+        this.numeroDescargas = datosLibro.numeroDescargas();
 
         if (datosLibro.idioma() != null && !datosLibro.idioma().isEmpty()){
             this.idioma = datosLibro.idioma().get(0);
@@ -66,5 +70,30 @@ public class Libro {
 
     public void setIdioma(String idioma) {
         this.idioma = idioma;
+    }
+
+    public int getNumeroDescargas() {
+        return numeroDescargas;
+    }
+
+    public void setNumeroDescargas(int numeroDescargas) {
+        this.numeroDescargas = numeroDescargas;
+    }
+
+    @Override
+    public String toString(){
+        String autoresNombres = autores.stream()
+                .map(a -> a.getNombre())
+                .collect(Collectors.joining(" - "));
+
+        String autorFormato = (autores.size() > 1) ? "Autores: " : "Autor: ";
+
+        return "\n" + "-------LIBRO------ " + "\n" +
+                "Titulo: " + titulo + "\n" +
+                autorFormato + autoresNombres + "\n" +
+                "Idioma: " + idioma +  "\n" +
+                "Número de descargas: " + numeroDescargas;
+
+
     }
 }
