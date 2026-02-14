@@ -8,7 +8,6 @@ import com.aluracursos.literalura.services.LibroService;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class MenuPrincipal {
     private boolean isNum = false;
@@ -54,7 +53,10 @@ public class MenuPrincipal {
                     listarAutoresVivosPorAnio();
                     break;
                 case 5:
-                    System.out.println(5);
+                    listarLibrosPorIdiomas();
+                    break;
+                case 6:
+                    top10();
                     break;
                 case -1:
                     break;
@@ -72,6 +74,7 @@ public class MenuPrincipal {
         System.out.println("3 - listar autores registrados");
         System.out.println("4 - listar autores vivos en un determinado año");
         System.out.println("5 - listar libros por idiomas");
+        System.out.println("6 - top 10 libros mas descargados");
         System.out.println("0 - salir");
     }
 
@@ -154,4 +157,37 @@ public class MenuPrincipal {
         }
 
     }
+
+    private void listarLibrosPorIdiomas(){
+        System.out.println("""
+                Ingresa alguno de los siguientes codigos o cualquier otro: 
+                es - Español
+                en - Inglés
+                fr - Francés 
+                """);
+        String codigo = scanner.nextLine().toLowerCase();
+
+        List<Libro> libros = repositorioLibros.findByIdioma(codigo);
+
+        if (libros.isEmpty()){
+            System.out.println("No se encontraron libros en ese idioma. Codigo: " + codigo);
+        }else{
+            System.out.println("------ Libros en el idioma encontrado ------");
+            libros.forEach(System.out::println);
+        }
+    }
+
+    private void top10(){
+        List<Libro> libros = repositorioLibros.findTop10ByOrderByNumeroDescargasDesc();
+
+        if (libros.isEmpty()){
+            System.out.println("La lista de libros esta vacia, busca algunos para añadirlos.");
+        }else{
+            System.out.println("------- TOP 10 LIBROS MAS DESCARGADOS -------");
+            libros.forEach(l -> System.out.println("Titulo: " + l.getTitulo() + " - Descargas: " + l.getNumeroDescargas()));
+        }
+
+    }
+
+
 }
