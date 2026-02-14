@@ -8,6 +8,7 @@ import com.aluracursos.literalura.services.LibroService;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MenuPrincipal {
     private boolean isNum = false;
@@ -50,7 +51,7 @@ public class MenuPrincipal {
                     listarAutoresRegistrados();
                     break;
                 case 4:
-                    System.out.println("4");
+                    listarAutoresVivosPorAnio();
                     break;
                 case 5:
                     System.out.println(5);
@@ -113,6 +114,43 @@ public class MenuPrincipal {
             System.out.println("No hay autores para mostrar.");
         }else{
             autores.stream().forEach(System.out::println);
+        }
+
+    }
+
+    private void listarAutoresVivosPorAnio(){
+        while (true){
+            System.out.println("0 - Atras");
+            System.out.println("Ingresa el año: ");
+            String input = scanner.nextLine();
+
+            if (input.equals("0")){
+                break;
+            }
+
+            int conversion = convertInput(input);
+
+            if (conversion == -1){
+                System.out.println("Escribe un número valido.");
+                continue;
+            }else {
+                int rangoAnio = conversion;
+                List<Autor> autoresVivos = repositorioAutores.buscarAutoresVivosPorAnio(rangoAnio);
+
+                if (autoresVivos.isEmpty()){
+                    System.out.println("No hay autores para mostrar.");
+                }else{
+                    /*old
+                    List<Autor> autoresVivos = autores.stream()
+                            .filter(a -> a.getFechaDeNacimiento() != null && a.getFechaDeMuerte() != null)
+                            .filter(a -> rangoAnio >= a.getFechaDeNacimiento() && rangoAnio <= a.getFechaDeMuerte())
+                            .collect(Collectors.toList());
+                    */
+
+                    System.out.println("-------- AUTORES VIVOS EN " + rangoAnio + " --------");
+                    autoresVivos.forEach(System.out::println);
+                }
+            }
         }
 
     }

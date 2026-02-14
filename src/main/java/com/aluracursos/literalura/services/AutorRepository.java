@@ -12,4 +12,9 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
     @Query("SELECT a FROM Autor a WHERE a.id IN (SELECT MIN(a2.id) FROM Autor a2 GROUP BY a2.nombre)")
     List<Autor> distinctAutores();
 
+    @Query("SELECT a FROM Autor a WHERE a.id IN (" +
+            "SELECT MIN(a2.id) FROM Autor a2 GROUP BY a2.nombre" +
+            ") AND :anio >= a.fechaDeNacimiento AND :anio <= a.fechaDeMuerte")
+    List<Autor> buscarAutoresVivosPorAnio(int anio);
+
 }
