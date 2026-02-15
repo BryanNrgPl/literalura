@@ -149,7 +149,6 @@ public class MenuPrincipal {
                             .filter(a -> rangoAnio >= a.getFechaDeNacimiento() && rangoAnio <= a.getFechaDeMuerte())
                             .collect(Collectors.toList());
                     */
-
                     System.out.println("-------- AUTORES VIVOS EN " + rangoAnio + " --------");
                     autoresVivos.forEach(System.out::println);
                 }
