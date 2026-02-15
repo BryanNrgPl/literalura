@@ -2,6 +2,7 @@ package com.aluracursos.literalura.services;
 
 import com.aluracursos.literalura.models.Libro;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     List<Libro> findTop10ByOrderByNumeroDescargasDesc();
 
+    @Query(value = "SELECT * FROM libros ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
+    Optional<Libro> obtenerLibroRandom();
 }

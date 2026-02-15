@@ -19,14 +19,16 @@ Completado
 
 
 ## Menú de interaccion con el usuario
-1. buscar libro por titulo
-2. listar libros registrados
-3. listar autores registrados
-4. listar autores vivos en un determinado año
-5. listar libros por idiomas
-6. top 10 libros mas descargados
-7. salir
-
+```text
+1 - Buscar libro por título
+2 - Listar libros registrados
+3 - Listar autores registrados
+4 - Listar autores vivos en un determinado año
+5 - Listar libros por idiomas
+6 - Top 10 libros más descargados
+7 - Volver a leer (Libro aleatorio)
+0 - Salir
+```
 
 ## TecnologÍas usadas
 

@@ -7,7 +7,9 @@ import com.aluracursos.literalura.services.LibroRepository;
 import com.aluracursos.literalura.services.LibroService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MenuPrincipal {
     private boolean isNum = false;
@@ -58,6 +60,9 @@ public class MenuPrincipal {
                 case 6:
                     top10();
                     break;
+                case 7:
+                    libroRandom();
+                    break;
                 case -1:
                     break;
                 default:
@@ -75,6 +80,7 @@ public class MenuPrincipal {
         System.out.println("4 - listar autores vivos en un determinado año");
         System.out.println("5 - listar libros por idiomas");
         System.out.println("6 - top 10 libros mas descargados");
+        System.out.println("7 - volver a leer (Libro aleatorio)");
         System.out.println("0 - salir");
     }
 
@@ -188,5 +194,25 @@ public class MenuPrincipal {
 
     }
 
+    private void libroRandom(){
+        Optional<Libro> libroRandom = repositorioLibros.obtenerLibroRandom();
+
+
+        if (libroRandom.isPresent()){
+            Libro libro = libroRandom.get();
+            String autorEtiqueta = libro.getAutores().size() > 1 ? "Autores: " : "Autor: ";
+            String autores = libro.getAutores().stream()
+                            .map(a -> a.getNombre())
+                            .collect(Collectors.joining(" - "));
+
+            System.out.println("------ LIBRO ALEATORIO ------");
+            System.out.println("Titulo: " + libro.getTitulo());
+            System.out.println(autorEtiqueta + autores);
+            System.out.println("Idioma: " + libro.getIdioma());
+            System.out.println("-------------------------------");
+        }else {
+            System.out.println("No hay libros registrados en la base de datos");
+        }
+    }
 
 }
